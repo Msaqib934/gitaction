@@ -57,13 +57,13 @@ jobs:
           IMAGE_TAG: latest
         run: |
           docker-compose build
-          docker tag larvel-nginx:latest $ECR_REGISTRY/larvel-nginx:$IMAGE_TAG
-          docker tag larvel-app:latest $ECR_REGISTRY/larvel-app:$IMAGE_TAG
-          docker push $ECR_REGISTRY/larvel-nginx:$IMAGE_TAG
-          docker push $ECR_REGISTRY/larvel-app:$IMAGE_TAG
+          docker tag demos:latest $ECR_REGISTRY/demos:$IMAGE_TAG
+          docker tag demoa:latest $ECR_REGISTRY/demoa:$IMAGE_TAG
+          docker push $ECR_REGISTRY/demos:$IMAGE_TAG
+          docker push $ECR_REGISTRY/demoa:$IMAGE_TAG
           echo "setting output values"
-          echo "::set-output name=appimage::$ECR_REGISTRY/larvel-app:$IMAGE_TAG"
-          echo "::set-output name=webimage::$ECR_REGISTRY/larvel-nginx:$IMAGE_TAG"
+          echo "::set-output name=appimage::$ECR_REGISTRY/demos:$IMAGE_TAG"
+          echo "::set-output name=webimage::$ECR_REGISTRY/demoa:$IMAGE_TAG"
 
       # Runs a single command using the runners shell
       - name: Print the image name
@@ -97,6 +97,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.web-task-def.outputs.task-definition }}
-          service: testserviceelb
-          cluster: testelb
+          service: saqib_ready
+          cluster: saqib_practice
           wait-for-service-stability: true
